@@ -285,7 +285,7 @@ void showStartScreen() {
 
 	// Info
 	printf("%s    ℹ  10 QUESTIONS • 4 CATEGORIES • SPEED DUEL @ Q8\n", GRAY);
-	printf("       DOUBLE OR NOTHING @ Q5 • LEADERBOARD OVERLAY%s\n\n", RESET);
+	printf("       DOUBLE EDGE ROUND @ Q5 • LEADERBOARD%s\n\n", RESET);
 
 	printf("%s    > SELECT OPTION: %s", WHITE, RESET);
 
@@ -465,7 +465,7 @@ char getAnswerWithTimeout(int seconds, int *timedOut) {
 	char answer = 0;
 	*timedOut = 0;
 
-	printf("\n%s    > YOUR ANSWER (1-4): %s", WHITE, RESET);
+	printf("\n%s    > YOUR ANSWER (1-4, H for Hint): %s", WHITE, RESET);
 	fflush(stdout);
 
 	time_t startTime = time(NULL);
@@ -714,7 +714,7 @@ void playGame(Question questions[MAX_QUESTIONS], int total, int* pScore, int* pA
 		printf("\n");
 
 		if(timedOut) {
-			playSound("dong.wav"); // Play wrong sound
+//			playSound("dong.wav"); // Play wrong sound
 			printCentered("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━", RED);
 			printCentered("⏰ TIME'S UP! NO POINTS!", RED);
 			char msg[200];
@@ -724,6 +724,7 @@ void playGame(Question questions[MAX_QUESTIONS], int total, int* pScore, int* pA
 		} else if (toupper(answerChar) == 'H') {
 			if (hintsUsed < 3) {
 				char msg[200];
+				printCentered("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━", RED);
 				sprintf(msg, "Hint: %s", q.hint);
 				printCentered(msg, BLUE);
 				printCentered("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━", RED);
