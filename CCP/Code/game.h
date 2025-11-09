@@ -25,6 +25,11 @@
 #define BOLD "\033[1m"
 #define DIM "\033[2m"
 
+#define DOUBLE_EDGE_QUESTION 4
+#define SPEED_DUEL_QUESTION 7
+
+#define SCORE_PER_QUESTION 100
+
 typedef struct {
     int sound;
     int mic;
@@ -46,8 +51,23 @@ typedef struct
 	int total_questions;
 	time_t test_date;
 	int time_taken; // in seconds
+	int accuracy; // %age
 } LeaderboardEntry;
 
+typedef struct {
+    char startGame[50];
+    char leaderboard[50];
+    char settings[50];
+    char exit[50];
+    char selectOption[50];
+    char questionsInfo[100];
+    char initializingProtocol[100];
+    int isRTL; // Right-to-left flag
+} LanguageStrings;
+
+extern LanguageStrings langStrings;
+void updateLanguage();
+void printMenuOption(int number, char* text, const char* color);
 // Function prototypes
 void clearScreen();
 void delay(int milliseconds);
@@ -57,11 +77,17 @@ void printGlow(const char* text, const char* color);
 void showStartScreen();
 void showSettings();
 void showLeaderboard();
-void playGame(Question questions[MAX_QUESTIONS], int total);
-void showGameOver(int score, int total);
+void playGame(Question questions[MAX_QUESTIONS], int total, int* score, int* accuracy);
+void showGameOver(int correct, int total, int score, int maxScore);
 void printBox(const char* content, const char* color);
 void animateText(const char* text, const char* color);
 // void printWrappedBox(const char *text);
 int loadQuestions(Question questions[],const char* filename);
 int splitText(char text[256], char lines[MAX_LINES][MAX_WIDTH]);
 void showSubjectSelection();
+char getAnswerWithTimeout(int seconds, int *timedOut);
+void playSound(const char* soundFile);
+int is_continuation(unsigned char byte);
+void reverse_utf8(char *str);
+void saveScore(LeaderboardEntry entry);
+int compareScores(const void *a, const void *b);
