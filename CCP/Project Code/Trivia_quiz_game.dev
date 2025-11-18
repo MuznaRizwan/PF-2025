@@ -51,7 +51,7 @@ AutoIncBuildNr=0
 SyncProduct=1
 
 [Unit1]
-FileName=..\..\pf-2025-1\pf\CCP\Code\main.c
+FileName=main.c
 CompileCpp=0
 Folder=
 Compile=1
